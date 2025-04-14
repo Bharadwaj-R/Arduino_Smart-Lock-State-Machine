@@ -7,7 +7,7 @@ void setup()
   SetupLED();
   SetupBuzzer();
   SetupKeypad();
-  Serial.println("!!  All Setup Success. Press any key  !!");
+  Serial.println("!!  All Setup Success. System locked. Input password to unlock  !!");
 }
 
 void loop()
