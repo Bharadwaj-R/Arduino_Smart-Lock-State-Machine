@@ -1,4 +1,4 @@
-enum SuperStateChech
+enum SuperStateCheck
 {
     Idle,
     Lock,
