@@ -7,7 +7,7 @@ void setup()
   SetupLED();
   SetupBuzzer();
   SetupKeypad();
-  Serial.println("Setup Success. Press any key!");
+  Serial.println("!!  All Setup Success. Press any key  !!");
 }
 
 void loop()

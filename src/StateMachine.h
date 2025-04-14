@@ -1,4 +1,4 @@
-enum SuperState1
+enum SuperStateChech
 {
     Idle,
     Lock,
@@ -8,12 +8,12 @@ enum SuperState1
     Unlock
 } SuperStatePassCheck;
 
-enum SuperState2
+enum SuperStateReset
 {
-    Idle,
+    Resting,
     PasswordReset,
-    Key1Press,
-    Key2Press,
-    Key3Press,
+    FirstKeyPress,
+    SecondKeyPress,
+    ThirdKeyPress,
     PasswordSaved
 } SuperStatePassReset;

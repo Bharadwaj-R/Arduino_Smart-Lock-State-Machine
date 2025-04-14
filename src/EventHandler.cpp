@@ -1,4 +1,5 @@
 #include "EventHandler.h"
+#include "StateMachine.h"
 
 uint32_t currentTime = 0;
 uint32_t lastActivity = 0;
@@ -30,32 +31,32 @@ void StateMachine()
 
         default:
         SuperStatePassCheck = Lock;
-        SuperStatePassReset = Idle;
+        SuperStatePassReset = Resting;
     }
     
     
     switch(SuperStatePassReset)
     {
-        case Idle:
+        case Resting:
         break;
 
         case PasswordReset:
         break;
 
-        case Key1Press:
+        case FirstKeyPress:
         break;
 
-        case Key2Press:
+        case SecondKeyPress:
         break;
 
-        case Key3Press:
+        case ThirdKeyPress:
         break;
 
         case PasswordSaved:
         break;
 
         default:
-        SuperStatePassReset = Idle;
+        SuperStatePassReset = Resting;
         SuperStatePassCheck = Lock;
     }
 
