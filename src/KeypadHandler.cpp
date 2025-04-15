@@ -1,9 +1,15 @@
 #include "KeypadHandler.h"
 
+#define debounce 100
+
 uint8_t columnScan[4] = {FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, FOURTH_COLUMN};
 uint8_t scan = 0;
 uint8_t rowInput = B00000000;
 uint8_t keyCode = 0;
+char prevKey = '\0';
+char newKey = '\0';
+uint32_t currentTime = 0;
+uint32_t previousTime = 0;
 
 void SetupKeypad()
 {
@@ -14,6 +20,7 @@ void SetupKeypad()
 
 char ScanKeypad()
 {
+    currentTime = millis();
     for(scan = 0; scan < 4; scan++)
     {   
         digitalWrite(PORTD, columnScan[scan%4]);
@@ -23,73 +30,89 @@ char ScanKeypad()
         switch (keyCode)
         {
         case BUTTON_0_PRESSED:
-            return '0';
+            newKey = '0';
         break;
         
         case BUTTON_1_PRESSED:
-            return '1';
+            newKey = '1';
         break;
         
         case BUTTON_2_PRESSED:
-            return '2';
+            newKey = '2';
         break;
         
         case BUTTON_3_PRESSED:
-            return '3';
+            newKey = '3';
         break;
         
         case BUTTON_4_PRESSED:
-            return '4';
+            newKey = '4';
         break;
         
         case BUTTON_5_PRESSED:
-            return '5';
+            newKey = '5';
         break;
         
         case BUTTON_6_PRESSED:
-            return '6';
+            newKey = '6';
         break;
         
         case BUTTON_7_PRESSED:
-            return '7';
+            newKey = '7';
         break;
         
         case BUTTON_8_PRESSED:
-            return '8';
+            newKey = '8';
         break;
         
         case BUTTON_9_PRESSED:
-            return '9';
+            newKey = '9';
         break;
 
         case BUTTON_star_PRESSED:
-            return '*';
+            newKey = '*';
         break;
         
         case BUTTON_hash_PRESSED:
-            return '#';
+            newKey = '#';
         break;
         
         case BUTTON_A_PRESSED:
-            return 'A';
+            newKey = 'A';
         break;
         
         case BUTTON_B_PRESSED:
-            return 'B';
+            newKey = 'B';
         break;
         
         case BUTTON_C_PRESSED:
-            return 'C';
+            newKey = 'C';
         break;
         
         case BUTTON_D_PRESSED:
-            return 'D';
+            newKey = 'D';
         break;
 
         default:
-            return '\0';
+            newKey = '\0';
         break;
         
         }
+        
+        if(prevKey != '\0' && newKey == '\0' && currentTime - previousTime > debounce)
+        {
+            previousTime = currentTime;
+
+            return prevKey;
+        }
+        else if(prevKey != newKey)
+        {
+            prevKey = newKey;
+        }
+        else
+        {
+            return '\0';
+        }
+
     }
 }
