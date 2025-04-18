@@ -1,11 +1,11 @@
 #include "LEDHandler.h"
 
-#define LEDPin LED_BUILTIN
+#define LEDPin A5
 
 void SetupLED()
 {
     pinMode(LEDPin, OUTPUT);
-    pinMode(LEDPin, LOW);
+    digitalWrite(LEDPin, LOW);
 }
 
 void TurnOnLED()
@@ -15,5 +15,5 @@ void TurnOnLED()
 
 void TurnOffLED()
 {
-    digitalWrite(LEDPin, HIGH);
+    digitalWrite(LEDPin, LOW);
 }

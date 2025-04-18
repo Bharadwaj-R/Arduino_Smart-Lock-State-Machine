@@ -1,6 +1,5 @@
 #include "KeypadHandler.h"
-
-#define debounce 100
+#include "KeypadConstants.h"
 
 uint8_t columnScan[4] = {FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, FOURTH_COLUMN};
 uint8_t scan = 0;
@@ -13,9 +12,16 @@ uint32_t previousTime = 0;
 
 void SetupKeypad()
 {
-    pinMode(PORTB, INPUT_PULLUP);  // the whole port B will read 1 by default B11111111
-    pinMode(PORTD, OUTPUT);
-    digitalWrite(PORTD, B00000000);
+    // pinMode(PORTB, INPUT_PULLUP);  // the whole port B will read 1 by default B11111111
+    pinMode(8, INPUT_PULLUP);
+    pinMode(9, INPUT_PULLUP);
+    pinMode(10, INPUT_PULLUP);
+    pinMode(11, INPUT_PULLUP);
+    pinMode(12, INPUT_PULLUP);
+    pinMode(13, INPUT_PULLUP);
+    
+    DDRD = B11111111;
+    PORTD = B00000000;
 }
 
 char ScanKeypad()
@@ -23,9 +29,8 @@ char ScanKeypad()
     currentTime = millis();
     for(scan = 0; scan < 4; scan++)
     {   
-        digitalWrite(PORTD, columnScan[scan%4]);
-        rowInput = PINB;
-        keyCode = columnScan[scan%4] ^ rowInput;        
+        PORTD = columnScan[scan];
+        keyCode = PORTD ^ PINB;
 
         switch (keyCode)
         {
@@ -98,21 +103,32 @@ char ScanKeypad()
         break;
         
         }
+
+        if(newKey != '\0')
+        {
+            break;
+        }
         
-        if(prevKey != '\0' && newKey == '\0' && currentTime - previousTime > debounce)
+    }
+
+
+    if(prevKey != '\0' && newKey == '\0' && currentTime - previousTime > debounce)
         {
             previousTime = currentTime;
-
-            return prevKey;
+            newKey = prevKey;
+            prevKey = '\0';
+            return newKey;
         }
         else if(prevKey != newKey)
-        {
+        {   
             prevKey = newKey;
+            previousTime = currentTime;
+            return '\0';
         }
         else
         {
             return '\0';
         }
-
-    }
+    
+    
 }

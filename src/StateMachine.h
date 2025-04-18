@@ -4,8 +4,9 @@ enum SuperStateCheck
     Lock,
     Key1Press,
     Key2Press,
-    Unlock
-} SuperStatePassCheck;
+    Unlock,
+    UnlockActions
+};
 
 enum SuperStateReset
 {
@@ -14,4 +15,4 @@ enum SuperStateReset
     FirstKeyInput,
     SecondKeyInput,
     PasswordSaved
-} SuperStatePassReset;
+};

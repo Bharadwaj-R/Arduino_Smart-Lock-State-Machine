@@ -1,6 +1,6 @@
 #include "BuzzerHandler.h"
 
-#define BuzzerPin 10
+#define BuzzerPin A0
 
 void SetupBuzzer()
 {
@@ -9,10 +9,10 @@ void SetupBuzzer()
 
 void BuzzBuzzer()
 {
-    digitalWrite(BuzzerPin, HIGH);
+    tone(BuzzerPin, 3000);
 }
 
 void StopBuzzer()
 {
-    digitalWrite(BuzzerPin, LOW);
+    noTone(BuzzerPin);
 }
